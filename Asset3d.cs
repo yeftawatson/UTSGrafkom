@@ -28,8 +28,8 @@ namespace Pertemuan1
         int _vertexArrayObject;
         int _elementBufferObject;
         Shader _shader;
-        Matrix4 _view; //camera
-        Matrix4 _projection; //settingan camera
+        //Matrix4 _view; //camera
+        //Matrix4 _projection; //settingan camera
         Matrix4 _model; //Merubah transformasi
         Vector3 _color; //coloring
         public Vector3 _center;
@@ -70,7 +70,7 @@ namespace Pertemuan1
         public void load(string shaderVert, string shaderFrag, float Size_x, float Size_y)
         {
             //Background color changing
-            GL.ClearColor(1.0f, 0.5f, 0.6f, 1.0f);
+            GL.ClearColor(0.0f, 0.0f, 0.0f, 1.0f);
             _vertexBufferObject = GL.GenBuffer();
             GL.BindBuffer(BufferTarget.ArrayBuffer, _vertexBufferObject);
             GL.BufferData(BufferTarget.ArrayBuffer, _vertices.Count * Vector3.SizeInBytes,
@@ -103,16 +103,17 @@ namespace Pertemuan1
             _shader = new Shader(shaderVert, shaderFrag);
             _shader.Use();
 
-            _view = Matrix4.CreateTranslation(0f, 0f, -3.0f);
+            //_view = Matrix4.CreateTranslation(0f, 0f, -3.0f);
 
-            _projection = Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(45f), Size_x / (float)Size_y, 0.1f, 100.0f);
+            //_projection = Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(45f), Size_x / (float)Size_y, 0.1f, 100.0f);
             foreach (var i in Child)
             {
                 i.load(shaderVert, shaderFrag, Size_x, Size_y);
+
             }
         }
 
-        public void render(int _lines, Matrix4 temp)
+        public void render(int _lines, Matrix4 temp, Matrix4 camera_view, Matrix4 camera_projection)
         {
             _shader.Use();
             GL.BindVertexArray(_vertexArrayObject);
@@ -120,8 +121,8 @@ namespace Pertemuan1
 
             _shader.SetVector3("ourColor", _color);
             _shader.SetMatrix4("model", _model);
-            _shader.SetMatrix4("view", _view);
-            _shader.SetMatrix4("projection", _projection);
+            _shader.SetMatrix4("view", camera_view);
+            _shader.SetMatrix4("projection", camera_projection);
 
             if (_indices.Count != 0)
             {
@@ -152,7 +153,7 @@ namespace Pertemuan1
             }
             foreach (var i in Child)
             {
-                i.render(_lines, temp);
+                i.render(_lines, temp, camera_view, camera_projection);
             }
         }
         public Vector3 getRotationResult(Vector3 pivot, Vector3 vector, float angle, Vector3 point, bool isEuler = false)

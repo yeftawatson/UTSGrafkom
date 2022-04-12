@@ -33,7 +33,7 @@ namespace Pertemuan1
     }
     internal class Window : GameWindow
     {
-        
+
         Asset3d[] _object3d = new Asset3d[20];
         Asset3d body;
         Asset3d main_head;
@@ -43,6 +43,7 @@ namespace Pertemuan1
         Asset3d left_foot;
         Asset3d cone;
         Asset3d cam = new Asset3d();
+        Camera _camera;
         float degree = 0;
         double _time = 0;
         public Window(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings) : base(gameWindowSettings, nativeWindowSettings)
@@ -150,7 +151,7 @@ namespace Pertemuan1
             cheek.createEllipsoid2(0.35f, 0.30f, 0.15f, 0.0f, -0.05f, 0.4f, 300, 100);
             cheek.setColor(new Vector3(255f, 255f, 255f));
 
-           
+
 
             nose.createEllipsoid2(0.075f, 0.075f, 0.075f, 0.0f, 0.0f, 0.63f, 300, 100);
             nose.setColor(new Vector3(255.0f, 0.0f, 0.0f));
@@ -212,7 +213,7 @@ namespace Pertemuan1
             mustache.rotate(main_head._center, mustache._euler[0], 110);
             main_head.addChildClass(mustache);
 
-           
+
         }
 
         public void makeHand()
@@ -276,7 +277,7 @@ namespace Pertemuan1
             makeBody();
             makeHand();
             makeFoot();
-
+           
             //cone = new Asset3d();
             //cone.createHalfBall(0.5f, 0.5f, 0.5f, -1.0f, 0.0f, 0.5f, 800, 2000);
             //cone.setColor(new Vector3(255, 0, 0));
@@ -300,6 +301,8 @@ namespace Pertemuan1
 
             GL.GetInteger(GetPName.MaxVertexAttribs, out int maxAttributeCount);
             Console.WriteLine($"Maximum number of vertex attributes supported : {maxAttributeCount}");
+            _camera = new Camera(new Vector3(0, 0, 1), Size.X / Size.Y);
+            CursorGrabbed = true;
         }
 
         protected override void OnRenderFrame(FrameEventArgs args)
@@ -311,12 +314,12 @@ namespace Pertemuan1
             Matrix4 temp = Matrix4.Identity;
             //main_head.rotate(main_head._center, main_head._euler[1], 1);
             //smile.rotate(main_head._center, main_head._euler[2], 180);
-            main_head.render(3, temp);
-            body.render(3, temp);
-            right_hand.render(3, temp);
-            left_hand.render(3, temp);
-            right_foot.render(3, temp);
-            left_foot.render(3, temp);
+            main_head.render(3, temp, _camera.GetViewMatrix(), _camera.GetProjectionMatrix());
+            body.render(3, temp, _camera.GetViewMatrix(), _camera.GetProjectionMatrix());
+            right_hand.render(3, temp, _camera.GetViewMatrix(), _camera.GetProjectionMatrix());
+            left_hand.render(3, temp, _camera.GetViewMatrix(), _camera.GetProjectionMatrix());
+            right_foot.render(3, temp, _camera.GetViewMatrix(), _camera.GetProjectionMatrix());
+            left_foot.render(3, temp, _camera.GetViewMatrix(), _camera.GetProjectionMatrix());
             SwapBuffers();
         }
 
@@ -335,7 +338,7 @@ namespace Pertemuan1
             }
             if (KeyboardState.IsKeyReleased(OpenTK.Windowing.GraphicsLibraryFramework.Keys.A))
             {
-                Console.Write("Hello Glenn \n");
+                Console.Write("Hello \n");
             }
             if (KeyboardState.IsKeyDown(Keys.Up))
             {
@@ -360,6 +363,31 @@ namespace Pertemuan1
             if (KeyboardState.IsKeyDown(Keys.E))
             {
                 cam.rotate(cam._center, cam._euler[2], 5);
+            }
+            float cameraSpeed = 0.5f;
+            if (KeyboardState.IsKeyDown(Keys.W))
+            {
+                _camera.Position += _camera.Front * cameraSpeed * (float)args.Time;
+            }
+            if (KeyboardState.IsKeyDown(Keys.S))
+            {
+                _camera.Position -= _camera.Front * cameraSpeed * (float)args.Time;
+            }
+            if (KeyboardState.IsKeyDown(Keys.D))
+            {
+                _camera.Position += _camera.Right * cameraSpeed * (float)args.Time;
+            }
+            if (KeyboardState.IsKeyDown(Keys.A))
+            {
+                _camera.Position -= _camera.Right * cameraSpeed * (float)args.Time;
+            }
+            if (KeyboardState.IsKeyDown(Keys.Space))
+            {
+                _camera.Position += _camera.Up * cameraSpeed * (float)args.Time;
+            }
+            if (KeyboardState.IsKeyDown(Keys.LeftShift))
+            {
+                _camera.Position -= _camera.Up * cameraSpeed * (float)args.Time;
             }
         }
 
