@@ -41,8 +41,7 @@ namespace Pertemuan1
         Asset3d left_hand;
         Asset3d right_foot;
         Asset3d left_foot;
-        Asset3d[] envTool = new Asset3d[10];
-        Asset3d _environment;
+        Asset3d cone;
         Asset3d cam = new Asset3d();
         Camera _camera;
         float degree = 0;
@@ -111,19 +110,6 @@ namespace Pertemuan1
             _object3d[7].createEllipsoid2(0.1f, 0.1f, 0.1f, 0.0f, 0.19f, 0.55f, 300, 100);
             _object3d[7].setColor(new Vector3(255, 255, 0));
             body.addChildClass(_object3d[7]);
-
-            //Buntut
-            _object3d[8] = new Asset3d();
-            _object3d[8].EllipCone(0.02f, 0.02f,0.1f,0.0f,-0.2f,-0.55f);
-            _object3d[8].setColor(new Vector3(0, 0, 0));
-            body.addChildClass(_object3d[8]);
-
-            //Bola Buntut
-            _object3d[9] = new Asset3d();
-            _object3d[9].createEllipsoid2(0.07f, 0.07f, 0.07f, 0.0f, -0.22f, -0.58f, 300, 100);
-            _object3d[9].setColor(new Vector3(255, 0, 0));
-            body.addChildClass(_object3d[9]);
-
         }
 
         public void makeHead()
@@ -281,23 +267,6 @@ namespace Pertemuan1
         }
 
 
-        public void makeEnvironment() 
-        {
-            envTool[0] = new Asset3d();
-            _environment = new Asset3d();
-
-            //Base
-            envTool[0] = new Asset3d();
-            envTool[0].createEllipsoid2(5.0f, 0.1f, 5.0f, 0.0f, -0.95f, 0.0f, 300, 100);
-            envTool[0].setColor(new Vector3(0, 130, 24));
-            _environment.addChildClass(envTool[0]);
-
-            //Base2
-            envTool[1] = new Asset3d();
-            envTool[1].createEllipsoid2(2.0f, 0.1f, 2.0f, 2.0f, -0.85f, 2.0f, 300, 100);
-            envTool[1].setColor(new Vector3(128, 97, 51));
-            _environment.addChildClass(envTool[1]);
-        }
 
         protected override void OnLoad()
         {
@@ -308,7 +277,6 @@ namespace Pertemuan1
             makeBody();
             makeHand();
             makeFoot();
-            makeEnvironment();
 
             //cone = new Asset3d();
             //cone.createHalfBall(0.5f, 0.5f, 0.5f, -1.0f, 0.0f, 0.5f, 800, 2000);
@@ -322,18 +290,14 @@ namespace Pertemuan1
             left_foot.load(Constant.PATH + "shader.vert", Constant.PATH + "shader.frag", Size.X, Size.Y);
             //cone.load(Constant.PATH + "shader.vert", Constant.PATH + "shader.frag", Size.X, Size.Y);
             //cam.addChildClass(cone);
-            _environment.load(Constant.PATH + "shader.vert", Constant.PATH + "shader.frag", Size.X, Size.Y);
-
             main_head.translateObject(0.5f);
             body.translateObject(-0.15f);
-
             cam.addChildClass(main_head);
             cam.addChildClass(body);
             cam.addChildClass(right_hand);
             cam.addChildClass(left_hand);
             cam.addChildClass(right_foot);
             cam.addChildClass(left_foot);
-            cam.addChildClass(_environment);
 
             GL.GetInteger(GetPName.MaxVertexAttribs, out int maxAttributeCount);
             Console.WriteLine($"Maximum number of vertex attributes supported : {maxAttributeCount}");
@@ -356,7 +320,6 @@ namespace Pertemuan1
             left_hand.render(3, temp, _camera.GetViewMatrix(), _camera.GetProjectionMatrix());
             right_foot.render(3, temp, _camera.GetViewMatrix(), _camera.GetProjectionMatrix());
             left_foot.render(3, temp, _camera.GetViewMatrix(), _camera.GetProjectionMatrix());
-            _environment.render(3, temp, _camera.GetViewMatrix(), _camera.GetProjectionMatrix());
             SwapBuffers();
         }
 
