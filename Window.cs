@@ -46,7 +46,7 @@ namespace Pertemuan1
         Asset3d[] envTool = new Asset3d[10];
         Asset3d _environment;
         Asset3d cam = new Asset3d();
-        Asset3d doraemon;
+        Asset3d doraemon = new Asset3d();
         Camera _camera;
         bool _firstMove = true;
         Vector2 _lastPos;
@@ -327,6 +327,13 @@ namespace Pertemuan1
         float totalTrans = 1;
         float trans = 0.01f;
 
+        bool plus = true;
+        float rotate = 0;
+        float totalRot = 30;
+        float rotDeg = 0.3f;
+        int left = 1;
+        bool[] leftNoleh = { true, false };
+
         public void animateDoraemon()
         {
             //condition of moving animation for positive degree
@@ -379,47 +386,116 @@ namespace Pertemuan1
 
             balingAtas.rotate(balingAtas._center, balingAtas._euler[1], 50);
 
+            if (rotate >= 0 && rotate < totalRot)
+            {
+                plus = true;
+            }
+            //condition of moving animation for negative degree
+            else
+            {
+                //first checking after rotate is equal to total rotation (totalRot)
+                if (plus)
+                {
+                    rotate = -0.3f;
+                }
+
+                if (rotate > (-1 * totalRot - 0.3f))
+                {
+                    plus = false;
+                }
+                else
+                {
+                    rotate = 0;
+                    plus = true;
+                    if (left == 1)
+                    {
+                        left = 0;
+                    }
+                    else
+                    {
+                        left = 1;
+                    }
+
+                }
+            }
+            if (plus)
+            {
+                //doraemon.Child[0].rotate(doraemon.Child[0]._center, doraemon.Child[0]._euler[1], rotDeg);
+                if (leftNoleh[left])
+                {
+                    doraemon.Child[0].rotate(doraemon.Child[0]._center, doraemon.Child[0]._euler[1], rotDeg * 1);
+                }
+                else
+                {
+                    doraemon.Child[0].rotate(doraemon.Child[0]._center, doraemon.Child[0]._euler[1], rotDeg * -1);
+                }
+                rotate += rotDeg;
+
+            }
+            else
+            {
+                //doraemon.Child[0].rotate(doraemon.Child[0]._center, doraemon.Child[0]._euler[1], rotDeg*-1);
+                if (leftNoleh[left])
+                {
+                    doraemon.Child[0].rotate(doraemon.Child[0]._center, doraemon.Child[0]._euler[1], rotDeg * -1);
+                }
+                else
+                {
+                    doraemon.Child[0].rotate(doraemon.Child[0]._center, doraemon.Child[0]._euler[1], rotDeg * 1);
+                }
+                rotate -= rotDeg;
+            }
+
+        }
+
+        public void makeDoraemon() 
+        {
+            makeHead();
+            makeBody();
+            makeHand();
+            makeFoot();
+            makeBaling();
+
+
+            //cam.addChildClass(main_head);
+            //cam.addChildClass(body);
+            //cam.addChildClass(right_hand);
+            //cam.addChildClass(left_hand);
+            //cam.addChildClass(right_foot);
+            //cam.addChildClass(left_foot);
+            //cam.addChildClass(baling);
+
+            main_head.translateObject(0.5f);
+            body.translateObject(-0.15f);
+
+
+            doraemon.addChildClass(main_head);
+            doraemon.addChildClass(body);
+            doraemon.addChildClass(right_hand);
+            doraemon.addChildClass(left_hand);
+            doraemon.addChildClass(right_foot);
+            doraemon.addChildClass(left_foot);
+            doraemon.addChildClass(baling);
+
+            
         }
 
 
         protected override void OnLoad()
         {
             base.OnLoad();
-            //Background 
+       
 
-            makeHead();
-            makeBody();
-            makeHand();
-            makeFoot();
-            makeBaling();
+
+            makeDoraemon();
             makeEnvironment();
 
-            //cone = new Asset3d();
-            //cone.createHalfBall(0.5f, 0.5f, 0.5f, -1.0f, 0.0f, 0.5f, 800, 2000);
-            //cone.setColor(new Vector3(255, 0, 0));
-
-            main_head.load(Constant.PATH + "shader.vert", Constant.PATH + "shader.frag", Size.X, Size.Y);
-            body.load(Constant.PATH + "shader.vert", Constant.PATH + "shader.frag", Size.X, Size.Y);
-            right_hand.load(Constant.PATH + "shader.vert", Constant.PATH + "shader.frag", Size.X, Size.Y);
-            left_hand.load(Constant.PATH + "shader.vert", Constant.PATH + "shader.frag", Size.X, Size.Y);
-            right_foot.load(Constant.PATH + "shader.vert", Constant.PATH + "shader.frag", Size.X, Size.Y);
-            left_foot.load(Constant.PATH + "shader.vert", Constant.PATH + "shader.frag", Size.X, Size.Y);
-            baling.load(Constant.PATH + "shader.vert", Constant.PATH + "shader.frag", Size.X, Size.Y);
-            //cone.load(Constant.PATH + "shader.vert", Constant.PATH + "shader.frag", Size.X, Size.Y);
-            //cam.addChildClass(cone);
+            doraemon.load(Constant.PATH + "shader.vert", Constant.PATH + "shader.frag", Size.X, Size.Y);
             _environment.load(Constant.PATH + "shader.vert", Constant.PATH + "shader.frag", Size.X, Size.Y);
 
-            main_head.translateObject(0.5f);
-            body.translateObject(-0.15f);
-
-            cam.addChildClass(main_head);
-            cam.addChildClass(body);
-            cam.addChildClass(right_hand);
-            cam.addChildClass(left_hand);
-            cam.addChildClass(right_foot);
-            cam.addChildClass(left_foot);
-            cam.addChildClass(baling);
+            cam.addChildClass(doraemon);
             cam.addChildClass(_environment);
+
 
             GL.GetInteger(GetPName.MaxVertexAttribs, out int maxAttributeCount);
             Console.WriteLine($"Maximum number of vertex attributes supported : {maxAttributeCount}");
@@ -436,13 +512,7 @@ namespace Pertemuan1
             Matrix4 temp = Matrix4.Identity;
             //main_head.rotate(main_head._center, main_head._euler[1], 1);
             //smile.rotate(main_head._center, main_head._euler[2], 180);
-            main_head.render(3, temp, _camera.GetViewMatrix(), _camera.GetProjectionMatrix());
-            body.render(3, temp, _camera.GetViewMatrix(), _camera.GetProjectionMatrix());
-            right_hand.render(3, temp, _camera.GetViewMatrix(), _camera.GetProjectionMatrix());
-            left_hand.render(3, temp, _camera.GetViewMatrix(), _camera.GetProjectionMatrix());
-            right_foot.render(3, temp, _camera.GetViewMatrix(), _camera.GetProjectionMatrix());
-            left_foot.render(3, temp, _camera.GetViewMatrix(), _camera.GetProjectionMatrix());
-            baling.render(3, temp, _camera.GetViewMatrix(), _camera.GetProjectionMatrix());
+            doraemon.render(3, temp, _camera.GetViewMatrix(), _camera.GetProjectionMatrix());
             _environment.render(3, temp, _camera.GetViewMatrix(), _camera.GetProjectionMatrix());
             animateDoraemon();
             SwapBuffers();
