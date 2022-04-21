@@ -454,6 +454,22 @@ namespace Pertemuan1
                 }
             }
         }
+        public void EllipCone2(float radius_x, float radius_y, float radius_z, float _x,
+        float _y, float _z)
+        {
+            float pi = (float)Math.PI;
+            Vector3 temp_vector;
+            for (float u = -pi; u <= pi; u += pi / 720)
+            {
+                for (float v = -pi / 2; v <= pi / 2; v += pi / 720)
+                {
+                    temp_vector.X = _x + (float)v * (float)Math.Cos(u) * radius_x;
+                    temp_vector.Y = _y + (float)v * (float)Math.Sin(u) * radius_y;
+                    temp_vector.Z = _z + (float)v * radius_z;
+                    _vertices.Add(temp_vector);
+                }
+            }
+        }
 
         public void EllipPara(float radius_x, float radius_y, float radius_z, float _x,
         float _y, float _z)

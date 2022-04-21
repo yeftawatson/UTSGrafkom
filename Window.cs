@@ -41,9 +41,12 @@ namespace Pertemuan1
         Asset3d left_hand;
         Asset3d right_foot;
         Asset3d left_foot;
+        Asset3d baling;
+        Asset3d balingAtas;
         Asset3d[] envTool = new Asset3d[10];
         Asset3d _environment;
         Asset3d cam = new Asset3d();
+        Asset3d doraemon;
         Camera _camera;
         bool _firstMove = true;
         Vector2 _lastPos;
@@ -304,6 +307,81 @@ namespace Pertemuan1
             _environment.addChildClass(envTool[1]);
         }
 
+        public void makeBaling()
+        {
+            baling = new Asset3d();
+            balingAtas = new Asset3d();
+            balingAtas.EllipCone2(0.02f, 0.02f, 0.12f, 0, 1.11f, 0);
+            balingAtas.setColor(new Vector3(254, 230, 168));
+            baling.addChildClass(balingAtas);
+
+            Asset3d balingBawah = new Asset3d();
+            balingBawah.EllipCone(0.02f, 0.02f, 0.1f, 0, 0, -1.1f);
+            balingBawah.setColor(new Vector3(254, 230, 168));
+            balingBawah.rotate(main_head._center, main_head._euler[0], 90);
+            baling.addChildClass(balingBawah);
+        }
+
+        bool inc = true;
+        float translate = 0;
+        float totalTrans = 1;
+        float trans = 0.01f;
+
+        public void animateDoraemon()
+        {
+            //condition of moving animation for positive degree
+            if (translate >= 0 && translate < totalTrans)
+            {
+                inc = true;
+            }
+            //condition of moving animation for negative degree
+            else
+            {
+                //first checking after rotate is equal to total rotation (totalRot)
+                if (inc)
+                {
+                    translate = -0.01f;
+                }
+
+                if (translate > (-1 * totalTrans - 0.01))
+                {
+                    inc = false;
+                }
+                else
+                {
+                    translate = 0;
+                    inc = true;
+                }
+            }
+            if (inc)
+            {
+                main_head.translateObject(trans);
+                body.translateObject(trans);
+                right_hand.translateObject(trans);
+                left_hand.translateObject(trans);
+                right_foot.translateObject(trans);
+                left_foot.translateObject(trans);
+                baling.translateObject(trans);
+                translate += trans;
+
+            }
+            else
+            {
+                main_head.translateObject(trans*-1);
+                body.translateObject(trans * -1);
+                right_hand.translateObject(trans * -1);
+                left_hand.translateObject(trans * -1);
+                right_foot.translateObject(trans * -1);
+                left_foot.translateObject(trans * -1);
+                baling.translateObject(trans * -1);
+                translate -= trans;
+            }
+
+            balingAtas.rotate(balingAtas._center, balingAtas._euler[1], 50);
+
+        }
+
+
         protected override void OnLoad()
         {
             base.OnLoad();
@@ -313,6 +391,7 @@ namespace Pertemuan1
             makeBody();
             makeHand();
             makeFoot();
+            makeBaling();
             makeEnvironment();
 
             //cone = new Asset3d();
@@ -325,6 +404,7 @@ namespace Pertemuan1
             left_hand.load(Constant.PATH + "shader.vert", Constant.PATH + "shader.frag", Size.X, Size.Y);
             right_foot.load(Constant.PATH + "shader.vert", Constant.PATH + "shader.frag", Size.X, Size.Y);
             left_foot.load(Constant.PATH + "shader.vert", Constant.PATH + "shader.frag", Size.X, Size.Y);
+            baling.load(Constant.PATH + "shader.vert", Constant.PATH + "shader.frag", Size.X, Size.Y);
             //cone.load(Constant.PATH + "shader.vert", Constant.PATH + "shader.frag", Size.X, Size.Y);
             //cam.addChildClass(cone);
             _environment.load(Constant.PATH + "shader.vert", Constant.PATH + "shader.frag", Size.X, Size.Y);
@@ -338,6 +418,7 @@ namespace Pertemuan1
             cam.addChildClass(left_hand);
             cam.addChildClass(right_foot);
             cam.addChildClass(left_foot);
+            cam.addChildClass(baling);
             cam.addChildClass(_environment);
 
             GL.GetInteger(GetPName.MaxVertexAttribs, out int maxAttributeCount);
@@ -361,7 +442,9 @@ namespace Pertemuan1
             left_hand.render(3, temp, _camera.GetViewMatrix(), _camera.GetProjectionMatrix());
             right_foot.render(3, temp, _camera.GetViewMatrix(), _camera.GetProjectionMatrix());
             left_foot.render(3, temp, _camera.GetViewMatrix(), _camera.GetProjectionMatrix());
+            baling.render(3, temp, _camera.GetViewMatrix(), _camera.GetProjectionMatrix());
             _environment.render(3, temp, _camera.GetViewMatrix(), _camera.GetProjectionMatrix());
+            animateDoraemon();
             SwapBuffers();
         }
 
