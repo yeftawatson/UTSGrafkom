@@ -33,7 +33,7 @@ namespace Pertemuan1
     }
     internal class Window : GameWindow
     {
-
+        //Doraemon Stuff
         Asset3d[] _object3d = new Asset3d[20];
         Asset3d body;
         Asset3d main_head;
@@ -48,6 +48,14 @@ namespace Pertemuan1
         Asset3d cam = new Asset3d();
         Asset3d doraemon = new Asset3d();
         Camera _camera;
+        Asset3d eyes2 = new Asset3d();
+        Asset3d eyes3 = new Asset3d();
+        Asset3d tong = new Asset3d();
+
+
+
+
+
         bool _firstMove = true;
         Vector2 _lastPos;
         Vector3 _objectPos = new Vector3(0.0f, 0.0f, 0.0f);
@@ -142,6 +150,8 @@ namespace Pertemuan1
             main_head.setColor(new Vector3(0.0f, 0.0f, 255.0f));
 
             Asset3d eyes = new Asset3d();
+            eyes2 = new Asset3d();
+            eyes3 = new Asset3d();
 
             eyes.createEllipsoid2(0.1f, 0.15f, 0.1f, -0.1f, 0.15f, 0.45f, 300, 100);
             eyes.setColor(new Vector3(235.0f, 235.0f, 235.0f));
@@ -152,15 +162,16 @@ namespace Pertemuan1
             eyes.setColor(new Vector3(235.0f, 235.0f, 235.0f));
             main_head.addChildClass(eyes);
 
-            eyes = new Asset3d();
-            eyes.createEllipsoid2(0.1f / 3f, 0.15f / 3f, 0.05f / 3f, 0.05f, 0.15f, 0.55f, 300, 100);
-            eyes.setColor(new Vector3(0.0f, 0.0f, 0.0f));
-            main_head.addChildClass(eyes);
+            eyes2 = new Asset3d();
+            eyes2.createEllipsoid2(0.1f / 3f, 0.15f / 3f, 0.05f / 3f, 0.05f, 0.15f, 0.55f, 300, 100);
+            eyes2.setColor(new Vector3(0.0f, 0.0f, 0.0f));
+            main_head.addChildClass(eyes2);
 
-            eyes = new Asset3d();
-            eyes.createEllipsoid2(0.1f / 3f, 0.15f / 3f, 0.05f / 3f, -0.05f, 0.15f, 0.55f, 300, 100);
-            eyes.setColor(new Vector3(0.0f, 0.0f, 0.0f));
-            main_head.addChildClass(eyes);
+            eyes3 = new Asset3d();
+            eyes3.createEllipsoid2(0.1f / 3f, 0.15f / 3f, 0.05f / 3f, -0.05f, 0.15f, 0.55f, 300, 100);
+            eyes2.setColor(new Vector3(0.0f, 0.0f, 0.0f));
+            main_head.addChildClass(eyes3);
+
             Asset3d cheek = new Asset3d();
             Asset3d smile = new Asset3d();
             Asset3d nose = new Asset3d();
@@ -293,18 +304,48 @@ namespace Pertemuan1
         {
             envTool[0] = new Asset3d();
             _environment = new Asset3d();
+            tong = new Asset3d();
 
             //Base
             envTool[0] = new Asset3d();
-            envTool[0].createEllipsoid2(5.0f, 0.1f, 5.0f, 0.0f, -0.95f, 0.0f, 300, 100);
-            envTool[0].setColor(new Vector3(0, 130, 24));
+            envTool[0].createEllipsoid2(10.0f, 0.0f, 10.0f, 0.0f, -0.95f, 0.0f, 300, 100);
+            envTool[0].setColor(new Vector3(11, 102, 35));
             _environment.addChildClass(envTool[0]);
 
             //Base2
             envTool[1] = new Asset3d();
-            envTool[1].createEllipsoid2(2.0f, 0.1f, 2.0f, 2.0f, -0.85f, 2.0f, 300, 100);
+            envTool[1].createEllipsoid2(2.0f, 0.0f, 2.0f, 1.0f, -0.94f, -3.0f, 300, 100);
             envTool[1].setColor(new Vector3(128, 97, 51));
             _environment.addChildClass(envTool[1]);
+
+            //TONG
+            envTool[2] = new Asset3d();
+            envTool[2].createCylinder(0, -0.45f, -2.5f, 0.5f, 4);
+            envTool[2].setColor(new Vector3(128, 128, 128));
+            envTool[2].rotate(envTool[2]._center, envTool[2]._euler[0], 90);
+            envTool[2].rotate(envTool[2]._center, envTool[2]._euler[2], 90);
+            _environment.addChildClass(envTool[2]);
+            tong.addChildClass(envTool[2]);
+
+            //TONG2
+            envTool[3] = new Asset3d();
+            envTool[3].createCylinder(0, -0.45f, -3.5f, 0.5f, 4);
+            envTool[3].setColor(new Vector3(211, 211, 211));
+            envTool[3].rotate(envTool[3]._center, envTool[3]._euler[0], 90);
+            envTool[3].rotate(envTool[3]._center, envTool[3]._euler[2], 90);
+            _environment.addChildClass(envTool[3]);
+            tong.addChildClass(envTool[3]);
+
+            //TONG3
+            envTool[4] = new Asset3d();
+            envTool[4].createCylinder(0, 0.42f, -3.0f, 0.5f, 4);
+            envTool[4].setColor(new Vector3(169, 169, 169));
+            envTool[4].rotate(envTool[4]._center, envTool[4]._euler[0], 90);
+            envTool[4].rotate(envTool[4]._center, envTool[4]._euler[2], 90);
+            _environment.addChildClass(envTool[4]);
+            tong.addChildClass(envTool[4]);
+
+            tong.rotate(tong._center, tong._euler[1], 70);
         }
 
         public void makeBaling()
@@ -334,8 +375,21 @@ namespace Pertemuan1
         int left = 1;
         bool[] leftNoleh = { true, false };
 
+        bool inc2 = true;
+        float translate2 = 0;
+        float totalTrans2 = 0.05f;
+        float trans2 = 0.001f;
+
+        //bool plus2 = true;
+        //float rotate2 = 0;
+        //float totalRot2 = 0.2f;
+        //float rotDeg2 = 0.01f;
+        //int left2 = 1;
+        //bool[] leftNoleh2 = { true, false };
+
         public void animateDoraemon()
         {
+        //TERBANG
             //condition of moving animation for positive degree
             if (translate >= 0 && translate < totalTrans)
             {
@@ -384,8 +438,10 @@ namespace Pertemuan1
                 translate -= trans;
             }
 
+            //Baling
             balingAtas.rotate(balingAtas._center, balingAtas._euler[1], 50);
 
+            //Kepala
             if (rotate >= 0 && rotate < totalRot)
             {
                 plus = true;
@@ -445,6 +501,107 @@ namespace Pertemuan1
                 }
                 rotate -= rotDeg;
             }
+
+            //MATA
+            if (translate2 >= 0 && translate2 < totalTrans2)
+            {
+                inc2 = true;
+            }
+            //condition of moving animation for negative degree
+            else
+            {
+                //first checking after rotate is equal to total rotation (totalRot)
+                if (inc2)
+                {
+                    translate2 = -0.01f;
+                }
+
+                if (translate2 > (-1 * totalTrans2 - 0.01))
+                {
+                    inc2 = false;
+                }
+                else
+                {
+                    translate2 = 0;
+                    inc2 = true;
+                }
+            }
+            if (inc2)
+            {
+                eyes2.translateObject(trans2);
+                eyes3.translateObject(trans2);
+                translate2 += trans2;
+
+
+            }
+            else
+            {
+                eyes2.translateObject(trans2*-1);
+                eyes3.translateObject(trans2*-1);
+                translate2 -= trans2;
+            }
+
+        ////TANGAN
+        //if (rotate2 >= 0 && rotate2 < totalRot2)
+        //    {
+        //        plus2 = true;
+        //    }
+        //    //condition of moving animation for negative degree
+        //    else
+        //    {
+        //        //first checking after rotate is equal to total rotation (totalRot)
+        //        if (plus2)
+        //        {
+        //            rotate2 = -0.1f;
+        //        }
+
+        //        if (rotate2 > (-1 * totalRot2 - 0.1f))
+        //        {
+        //            plus2 = false;
+        //        }
+        //        else
+        //        {
+        //            rotate2 = 0;
+        //            plus2 = true;
+        //            if (left2 == 1)
+        //            {
+        //                left2 = 0;
+        //            }
+        //            else
+        //            {
+        //                left2 = 1;
+        //            }
+
+        //        }
+        //    }
+        //    if (plus2)
+        //    {
+        //        //doraemon.Child[0].rotate(doraemon.Child[0]._center, doraemon.Child[0]._euler[1], rotDeg);
+        //        if (leftNoleh2[left])
+        //        {
+        //            right_hand.rotate(doraemon._center, doraemon._euler[2]*-1, rotDeg);
+        //        }
+        //        else
+        //        {
+        //            right_hand.rotate(doraemon._center, doraemon._euler[2] * -1, rotDeg*-1);
+        //        }
+        //        rotate2 += rotDeg2;
+
+        //    }
+        //    else
+        //    {
+        //        //doraemon.Child[0].rotate(doraemon.Child[0]._center, doraemon.Child[0]._euler[1], rotDeg*-1);
+        //        if (leftNoleh2[left])
+        //        {
+        //            right_hand.rotate(doraemon._center, doraemon._euler[2] * -1, rotDeg * -1);
+        //        }
+        //        else
+        //        {
+        //            right_hand.rotate(doraemon._center, doraemon._euler[2] * -1, rotDeg);
+        //        }
+        //        rotate2 -= rotDeg2;
+        //    }
+
 
         }
 

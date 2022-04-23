@@ -522,6 +522,26 @@ namespace Pertemuan1
             }
         }
 
+        public void createCylinder(float center_x, float center_y, float center_z, float radius, float height)
+        {
+            _center.X = center_x;
+            _center.Y = center_y;
+            _center.Z = center_z;
+            Vector3 temp_vector;
+
+            for (float deg = 0; deg <= 360; deg+= 0.1f)
+            {
+                for (float t = 0; t <= height; t += 0.5f)
+                {
+                    temp_vector.X = center_x + radius * (float)Math.Cos(deg);
+                    temp_vector.Y = center_y + t;
+                    temp_vector.Z = center_z + radius * (float)Math.Sin(deg);
+                    _vertices.Add(temp_vector);
+                }
+            }
+
+        }
+
         public void createEllipsoid2(float radiusX, float radiusY, float radiusZ,
             float _x, float _y, float _z, int sectorCount, int stackCount)
         {
