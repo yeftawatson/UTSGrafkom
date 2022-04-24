@@ -505,6 +505,16 @@ namespace Pertemuan1
             }
         }
 
+        public void translateObject2(float x, float y, float z)
+        {
+
+            _model *= Matrix4.CreateTranslation(x, y, z);
+            foreach (var i in Child)
+            {
+                i._model *= Matrix4.CreateTranslation(x, y, z);
+            }
+        }
+
         public void createElipseoid(float radius_x, float radius_y, float radius_z, float _x,
         float _y, float _z)
         {
@@ -602,6 +612,7 @@ namespace Pertemuan1
                 i._model *= Matrix4.CreateTranslation(0, y, 0);
             }
         }
+
         public void createHalfBall(float radiusX, float radiusY, float radiusZ,
             float _x, float _y, float _z, int sectorCount, int stackCount)
         {
