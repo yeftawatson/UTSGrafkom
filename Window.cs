@@ -1121,7 +1121,7 @@ namespace Pertemuan1
 
            
 
-            animateDoraemon();
+            //animateDoraemon();
             animatePawaemon();
             SwapBuffers();
         }
