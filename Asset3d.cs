@@ -70,7 +70,7 @@ namespace Pertemuan1
         public void load(string shaderVert, string shaderFrag, float Size_x, float Size_y)
         {
             //Background color changing
-            GL.ClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+            GL.ClearColor(82.0f/255.0f, 229.0f/255.0f, 255.0f/255.0f, 1.0f);
             _vertexBufferObject = GL.GenBuffer();
             GL.BindBuffer(BufferTarget.ArrayBuffer, _vertexBufferObject);
             GL.BufferData(BufferTarget.ArrayBuffer, _vertices.Count * Vector3.SizeInBytes,

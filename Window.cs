@@ -65,6 +65,16 @@ namespace Pertemuan1
         Asset3d cape_pawaemon;
         Asset3d pawaemon = new Asset3d();
 
+        //Dorami Stuff
+        Asset3d[] _object3dDorami = new Asset3d[20];
+        Asset3d bodyDorami;
+        Asset3d main_headDorami;
+        Asset3d right_handDorami;
+        Asset3d left_handDorami;
+        Asset3d right_footDorami;
+        Asset3d left_footDorami;
+        Asset3d dorami = new Asset3d();
+
 
 
         bool _firstMove = true;
@@ -79,6 +89,147 @@ namespace Pertemuan1
 
         }
 
+        Asset3d[] sakura = new Asset3d[10];
+        public Asset3d makeSakura(float x = 0, float y = 0, float z = 0)
+        {
+            Asset3d sakura = new Asset3d();
+            int scale = 5;
+            Asset3d branch = new Asset3d();
+            branch.EllipPara(0.001f * scale, 0.001f * scale, 0.007f * scale, 0, 0, 0);
+            branch.setColor(new Vector3(70, 50, 15));
+            branch.rotate(sakura._center, branch._euler[0], 90);
+            sakura.addChildClass(branch);
+
+            branch = new Asset3d();                               //y  //x  
+            branch.EllipPara(0.0008f * scale, 0.0008f * scale, 0.007f / 3f * scale, 0f, -0.1f * scale, -0.12f * scale);
+            branch.setColor(new Vector3(70, 50, 15));
+            branch.rotate(sakura._center, branch._euler[0], 50);
+            sakura.addChildClass(branch);
+
+            branch = new Asset3d();
+            branch.EllipPara(0.0008f * scale, 0.0008f * scale, 0.007f / 3f * scale, 0f, 0.17f * scale, -0.09f * scale);
+            branch.setColor(new Vector3(70, 50, 15));
+            branch.rotate(sakura._center, branch._euler[0], 140);
+            sakura.addChildClass(branch);
+
+            branch = new Asset3d();                               //y  //x  
+            branch.EllipPara(0.0008f * scale, 0.0008f * scale, 0.007f / 3f * scale, 0f, -0.18f * scale, -0.03f * scale);
+            branch.setColor(new Vector3(70, 50, 15));
+            branch.rotate(sakura._center, branch._euler[0], 50);
+            sakura.addChildClass(branch);
+
+            branch = new Asset3d();
+            branch.EllipPara(0.0008f * scale, 0.0008f * scale, 0.007f / 3f * scale, 0f * scale, 0.07f * scale, -0.18f * scale);
+            branch.setColor(new Vector3(70, 50, 15));
+            branch.rotate(sakura._center, branch._euler[0], 140);
+            sakura.addChildClass(branch);
+
+            //bunga kanan
+
+            Asset3d flower;
+
+            flower = new Asset3d();
+            flower.createEllipsoid2(0.1f / 6f * scale, 0.1f / 6f * scale, 0.1f / 6f * scale, 0, 0.05f * scale, 0.18f * scale, 300, 100);
+            flower.setColor(new Vector3(255, 143, 244));
+            sakura.addChildClass(flower);
+
+            flower = new Asset3d();
+            flower.createEllipsoid2(0.1f / 6f * scale, 0.1f / 6f * scale, 0.1f / 6f * scale, 0, 0.01f * scale, 0.13f * scale, 300, 100);
+            flower.setColor(new Vector3(255, 143, 244));
+            sakura.addChildClass(flower);
+
+            flower = new Asset3d();
+            flower.createEllipsoid2(0.1f / 6f * scale, 0.1f / 6f * scale, 0.1f / 6f * scale, 0, -0.03f * scale, 0.08f * scale, 300, 100);
+            flower.setColor(new Vector3(255, 143, 244));
+            sakura.addChildClass(flower);
+
+            flower = new Asset3d();
+            flower.createEllipsoid2(0.1f / 6f * scale, 0.1f / 6f * scale, 0.1f / 6f * scale, 0, -0.07f * scale, 0.03f * scale, 300, 100);
+            flower.setColor(new Vector3(255, 143, 244));
+            sakura.addChildClass(flower);
+
+            //bunga kiri
+
+            flower = new Asset3d();
+            flower.createEllipsoid2(0.1f / 6f * scale, 0.1f / 6f * scale, 0.1f / 6f * scale, 0, 0.02f * scale, (-0.13f - 0.02f) * scale, 300, 100);
+            flower.setColor(new Vector3(255, 143, 244));
+            sakura.addChildClass(flower);
+
+            flower = new Asset3d();
+            flower.createEllipsoid2(0.1f / 6f * scale, 0.1f / 6f * scale, 0.1f / 6f * scale, 0, (-0.03f - 0.02f) * scale, (-0.08f - 0.01f) * scale, 300, 100);
+            flower.setColor(new Vector3(255, 143, 244));
+            sakura.addChildClass(flower);
+
+            flower = new Asset3d();
+            flower.createEllipsoid2(0.1f / 6f * scale, 0.1f / 6f * scale, 0.1f / 6f * scale, 0, (-0.07f - 0.04f) * scale, (-0.03f - 0.01f) * scale, 300, 100);
+            flower.setColor(new Vector3(255, 143, 244));
+            sakura.addChildClass(flower);
+
+            //bunga kanan bawah
+
+            flower = new Asset3d();
+            flower.createEllipsoid2(0.1f / 6f * scale, 0.1f / 6f * scale, 0.1f / 6f * scale, 0, (0.05f - 0.12f) * scale, 0.18f * scale, 300, 100);
+            flower.setColor(new Vector3(255, 143, 244));
+            sakura.addChildClass(flower);
+
+            flower = new Asset3d();
+            flower.createEllipsoid2(0.1f / 6f * scale, 0.1f / 6f * scale, 0.1f / 6f * scale, 0, (0.01f - 0.12f) * scale, 0.13f * scale, 300, 100);
+            flower.setColor(new Vector3(255, 143, 244));
+            sakura.addChildClass(flower);
+
+            flower = new Asset3d();
+            flower.createEllipsoid2(0.1f / 6f * scale, 0.1f / 6f * scale, 0.1f / 6f * scale, 0, (-0.03f - 0.12f) * scale, 0.08f * scale, 300, 100);
+            flower.setColor(new Vector3(255, 143, 244));
+            sakura.addChildClass(flower);
+
+            flower = new Asset3d();
+            flower.createEllipsoid2(0.1f / 6f * scale, 0.1f / 6f * scale, 0.1f / 6f * scale, 0, (-0.07f - 0.12f) * scale, 0.03f * scale, 300, 100);
+            flower.setColor(new Vector3(255, 143, 244));
+            sakura.addChildClass(flower);
+            //bunga kiri bawah
+
+            flower = new Asset3d();
+            flower.createEllipsoid2(0.1f / 6f * scale, 0.1f / 6f * scale, 0.1f / 6f * scale, 0, (0.02f - 0.12f) * scale, (-0.13f - 0.02f) * scale, 300, 100);
+            flower.setColor(new Vector3(255, 143, 244));
+            sakura.addChildClass(flower);
+
+            flower = new Asset3d();
+            flower.createEllipsoid2(0.1f / 6f * scale, 0.1f / 6f * scale, 0.1f / 6f * scale, 0, (-0.03f - 0.02f - 0.12f) * scale, (-0.08f - 0.01f) * scale, 300, 100);
+            flower.setColor(new Vector3(255, 143, 244));
+            sakura.addChildClass(flower);
+
+            flower = new Asset3d();
+            flower.createEllipsoid2(0.1f / 6f * scale, 0.1f / 6f * scale, 0.1f / 6f * scale, 0, (-0.07f - 0.04f - 0.12f) * scale, (-0.03f - 0.01f) * scale, 300, 100);
+            flower.setColor(new Vector3(255, 143, 244));
+            sakura.addChildClass(flower);
+
+            sakura.rotate(sakura._center, sakura._euler[1], 90);
+
+            sakura.translateObject2(x, 0.67f + y, z);
+
+            return sakura;
+        }
+        private void loadSakura()
+        {
+            for (int i = 0; i < sakura.Length; i++)
+            {
+                if (sakura[i] != null)
+                {
+                    sakura[i].load(Constant.PATH + "shader.vert", Constant.PATH + "shader.frag", Size.X, Size.Y);
+                    cam.addChildClass(sakura[i]);
+                }
+            }
+        }
+        private void renderSakura(Matrix4 temp)
+        {
+            for (int i = 0; i < sakura.Length; i++)
+            {
+                if (sakura[i] != null)
+                {
+                    sakura[i].render(3, temp, _camera.GetViewMatrix(), _camera.GetProjectionMatrix());
+                }
+            }
+        }
         public void makeBody()
         {
             //Ganti Background
@@ -627,6 +778,188 @@ namespace Pertemuan1
             pawaemon.addChildClass(left_foot_pawaemon);
         }
 
+        public void makebodyDorami()
+        {
+            //Ganti Background
+            GL.ClearColor(0f, 0f, 0f, 1.0f);
+            _object3dDorami[0] = new Asset3d();
+            bodyDorami = new Asset3d();
+
+            //Badan
+            _object3dDorami[0] = new Asset3d();
+            _object3dDorami[0].createEllipsoid2(0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 300, 100);
+            _object3dDorami[0].setColor(new Vector3(255, 228, 59));
+            bodyDorami.addChildClass(_object3dDorami[0]);
+
+            //Outline Kantong
+            _object3dDorami[3] = new Asset3d();
+            _object3dDorami[3].createHalfBall(0.3f, 0.3f, 0.03f, 0.0f, -0.15f, 0.475f, 800, 2000);
+            _object3dDorami[3].rotate(_object3dDorami[0]._center, _object3dDorami[0]._euler[2], 180);
+            _object3dDorami[3].rotate(_object3dDorami[0]._center, _object3dDorami[0]._euler[0], 10);
+            _object3dDorami[3].setColor(new Vector3(0, 0, 0));
+            bodyDorami.addChildClass(_object3dDorami[3]);
+
+            //kantong
+            _object3dDorami[4] = new Asset3d();
+            _object3dDorami[4].createHalfBall(0.28f, 0.28f, 0.0f, 0.0f, -0.2f, 0.5f, 800, 2000);
+            _object3dDorami[4].rotate(_object3dDorami[0]._center, _object3dDorami[0]._euler[2], 180);
+            _object3dDorami[4].rotate(_object3dDorami[0]._center, _object3dDorami[0]._euler[0], 15);
+            _object3dDorami[4].setColor(new Vector3(255, 255, 255));
+            bodyDorami.addChildClass(_object3dDorami[4]);
+
+            //kalung lonceng
+            _object3dDorami[5] = new Asset3d();
+            _object3dDorami[5].createEllipsoid2(0.5f, 0.08f, 0.5f, 0.0f, 0.29f, 0.0f, 300, 100);
+            _object3dDorami[5].setColor(new Vector3(2, 160, 231));
+            bodyDorami.addChildClass(_object3dDorami[5]);
+
+
+            //bg lonceng
+            _object3dDorami[6] = new Asset3d();
+            _object3dDorami[6].createEllipsoid2(0.11f, 0.01f, 0.11f, 0.0f, 0.19f, 0.55f, 300, 100);
+            _object3dDorami[6].setColor(new Vector3(255, 165, 0));
+            bodyDorami.addChildClass(_object3dDorami[6]);
+
+            //Lonceng
+            _object3dDorami[7] = new Asset3d();
+            _object3dDorami[7].createEllipsoid2(0.1f, 0.1f, 0.1f, 0.0f, 0.19f, 0.55f, 300, 100);
+            _object3dDorami[7].setColor(new Vector3(255, 255, 0));
+            bodyDorami.addChildClass(_object3dDorami[7]);
+        }
+
+        public void makeHeadDorami()
+        {
+            main_headDorami = new Asset3d();
+            //main_headDorami.createElipseoid(0.5f, 0.45f, 0.4f, 0.5f, 0.5f, 0.5f);
+            main_headDorami.createEllipsoid2(0.5f, 0.45f, 0.5f, 0.0f, 0.0f, 0.0f, 300, 100);
+            main_headDorami.setColor(new Vector3(253, 229, 63));
+
+            Asset3d eyes = new Asset3d();
+
+            eyes.createEllipsoid2(0.1f, 0.12f, 0.1f, -0.15f, 0.02f, 0.43f, 300, 100);
+            eyes.setColor(new Vector3(255.0f, 255.0f, 255.0f));
+            main_headDorami.addChildClass(eyes);
+
+            eyes = new Asset3d();
+            eyes.createEllipsoid2(0.1f, 0.12f, 0.1f, 0.15f, 0.02f, 0.43f, 300, 100);
+            eyes.setColor(new Vector3(255.0f, 255.0f, 255.0f));
+            main_headDorami.addChildClass(eyes);
+
+            eyes = new Asset3d();
+            eyes.createEllipsoid2(0.1f / 3f, 0.15f / 3f, 0.05f / 3f, 0.15f, 0f, 0.53f, 300, 100);
+            eyes.setColor(new Vector3(0.0f, 0.0f, 0.0f));
+            main_headDorami.addChildClass(eyes);
+
+
+            eyes = new Asset3d();
+            eyes.createEllipsoid2(0.1f / 3f, 0.15f / 3f, 0.05f / 3f, -0.15f, 0f, 0.53f, 300, 100);
+            eyes.setColor(new Vector3(0.0f, 0.0f, 0.0f));
+            main_headDorami.addChildClass(eyes);
+            Asset3d cheek = new Asset3d();
+            Asset3d smile = new Asset3d();
+            Asset3d nose = new Asset3d();
+            cheek.createEllipsoid2(0.35f, 0.3f, 0.1f, 0.0f, -0.05f, 0.42f, 300, 100);
+            cheek.setColor(new Vector3(240f, 240f, 240f));
+
+            nose.createEllipsoid2(0.055f, 0.035f, 0.055f, 0.0f, -0.1f, 0.48f, 300, 100);
+            nose.setColor(new Vector3(251, 207, 208));
+
+            smile.createHalfBall(0.1f, 0.12f, 0f, 0.0f, 0.01f, 0.545f, 800, 2000);
+            smile.setColor(new Vector3(255f, 0f, 0f));
+            smile.rotate(main_headDorami._center, main_headDorami._euler[2], 180);
+            smile.rotate(main_headDorami._center, main_headDorami._euler[0], 15);
+            main_headDorami.addChildClass(smile);
+            main_headDorami.addChildClass(cheek);
+            main_headDorami.addChildClass(nose);
+            Asset3d ears;
+            //right ear
+            ears = new Asset3d();
+            ears.EllipPara(0.021f, 0.021f, 0.004f, -0.07f, 0f, -0.76f);
+            ears.rotate(main_headDorami._center, ears._euler[0], 90);
+            ears.rotate(main_headDorami._center, ears._euler[1], 15);
+            ears.setColor(new Vector3(225, 0, 42));
+            main_headDorami.addChildClass(ears);
+            //left ear
+            ears = new Asset3d();
+            ears.EllipPara(0.021f, 0.021f, 0.004f, 0.07f, 0f, -0.76f);
+            ears.rotate(main_headDorami._center, ears._euler[0], 90);
+            ears.rotate(main_headDorami._center, ears._euler[1], -15);
+            ears.setColor(new Vector3(225, 0, 42));
+            main_headDorami.addChildClass(ears);
+        }
+
+        public void makeHandDorami()
+        {
+            //right hand
+            right_handDorami = new Asset3d();
+            right_handDorami.createEllipsoid2(0.12f, 0.12f, 0.12f, 0.55f, 0.3f, 0f, 300, 100);
+            right_handDorami.setColor(new Vector3(211, 211, 211));
+            //right arm
+            Asset3d arm = new Asset3d();
+            arm.EllipPara(0.011f, 0.011f, 0.004f, 0.45f, 0f, 0f);
+            arm.setColor(new Vector3(255, 200, 59));
+            arm.rotate(right_handDorami._center, arm._euler[0], 270);
+            arm.rotate(right_handDorami._center, arm._euler[1], 15);
+            right_handDorami.addChildClass(arm);
+
+            //left hand
+            left_handDorami = new Asset3d();
+            left_handDorami.createEllipsoid2(0.12f, 0.12f, 0.12f, -0.55f, 0.3f, 0.0f, 300, 100);
+            left_handDorami.setColor(new Vector3(211, 211, 211));
+            //left arm
+            arm = new Asset3d();
+            arm.EllipPara(0.011f, 0.011f, 0.004f, -0.45f, 0f, 0f);
+            arm.setColor(new Vector3(255, 200, 59));
+            arm.rotate(left_handDorami._center, arm._euler[0], 270);
+            arm.rotate(left_handDorami._center, arm._euler[1], -15);
+            left_handDorami.addChildClass(arm);
+        }
+
+        public void makeFootDorami()
+        {
+            //right foot
+            right_footDorami = new Asset3d();
+            right_footDorami.createEllipsoid2(0.2f, 0.1f, 0.2f, 0.2f, -0.75f, 0.0f, 300, 100);
+            right_footDorami.setColor(new Vector3(211, 211, 211));
+            //right leg
+            Asset3d leg = new Asset3d();
+            leg.createHalfBall(0.15f, 0.4f, 0.15f, 0.2f, -0.7f, 0.0f, 800, 2000);
+            leg.setColor(new Vector3(255, 200, 59));
+            right_footDorami.addChildClass(leg);
+
+            //left foot
+            left_footDorami = new Asset3d();
+            left_footDorami.createEllipsoid2(0.2f, 0.1f, 0.2f, -0.2f, -0.75f, 0.0f, 300, 100);
+            left_footDorami.setColor(new Vector3(211, 211, 211));
+            //left leg
+            leg = new Asset3d();
+            leg.createHalfBall(0.15f, 0.4f, 0.15f, -0.2f, -0.7f, 0.0f, 800, 2000);
+            leg.setColor(new Vector3(255, 200, 59));
+            left_footDorami.addChildClass(leg);
+        }
+
+        public void makeDorami()
+        {
+            makeHeadDorami();
+            makebodyDorami();
+            makeHandDorami();
+            makeFootDorami();
+
+            main_headDorami.translateObject2(-2f, 0.5f, 0);
+            bodyDorami.translateObject2(-2f, -0.15f, 0);
+            right_handDorami.translateObject2(-2f, 0, 0);
+            left_handDorami.translateObject2(-2f, -0.1f, 0);
+            right_footDorami.translateObject2(-2f, 0, 0);
+            left_footDorami.translateObject2(-2f, 0, 0);
+
+            dorami.addChildClass(main_headDorami);
+            dorami.addChildClass(bodyDorami);
+            dorami.addChildClass(right_handDorami);
+            dorami.addChildClass(left_handDorami);
+            dorami.addChildClass(right_footDorami);
+            dorami.addChildClass(left_footDorami);
+
+        }
         public void makeEnvironment()
         {
             envTool[0] = new Asset3d();
@@ -635,8 +968,8 @@ namespace Pertemuan1
 
             //Base
             envTool[0] = new Asset3d();
-            envTool[0].createEllipsoid2(7.0f, 0.0f, 7.0f, 0.0f, -0.95f, -1.5f, 300, 100);
-            envTool[0].setColor(new Vector3(11, 102, 35));
+            envTool[0].createEllipsoid2(8.0f, 0.0f, 8.0f, 0.0f, -0.95f, -1.5f, 300, 100);
+            envTool[0].setColor(new Vector3(0, 191, 6));
             _environment.addChildClass(envTool[0]);
 
             //Base2
@@ -673,11 +1006,12 @@ namespace Pertemuan1
             tong.addChildClass(envTool[4]);
 
             tong.rotate(tong._center, tong._euler[1], 70);
+            tong.translateObject2(-1, 0, 0);
 
             //Bulan
             envTool[5] = new Asset3d();
-            envTool[5].createEllipsoid2(10.0f, 10.0f, 10.0f, 0.0f, 20.0f, -20.0f, 300, 100);
-            envTool[5].setColor(new Vector3(250, 250, 250));
+            envTool[5].createEllipsoid2(15.0f, 15.0f, 15.0f, 0.0f, 5.0f, -30.0f, 300, 100);
+            envTool[5].setColor(new Vector3(255, 255, 0));
             _environment.addChildClass(envTool[5]);
 
 
@@ -699,13 +1033,19 @@ namespace Pertemuan1
             //Cone
             envTool[8] = new Asset3d();
             envTool[8].EllipPara(0.01f, 0.01f, 0.07f, 3.5f, 0.5f, -3.5f);
-            envTool[8].setColor(new Vector3(255, 241, 5));
+            envTool[8].setColor(new Vector3(0, 0, 0));
             envTool[8].rotate(envTool[8]._center, envTool[8]._euler[1], 45);
             _environment.addChildClass(envTool[8]);
 
+            //Base
+            envTool[9] = new Asset3d();
+            envTool[9].createEllipsoid2(30.0f, 0.0f, 30.0f, 0.0f, -0.96f, -1.5f, 300, 100);
+            envTool[9].setColor(new Vector3(43, 160, 255));
+            _environment.addChildClass(envTool[9]);
 
 
 
+            _environment.translateObject(0.1f);
 
         }
 
@@ -1044,6 +1384,49 @@ namespace Pertemuan1
                 rotate_pawaemon -= rotDegPawaemon;
             }
         }
+        bool plus_dorami = true;
+        float rotate_dorami = 0;
+        float rotdeg_dorami = 1;
+        float totalRot_dorami = 10;
+
+        public void animateDorami()
+        {
+            if (rotate_dorami >= 0 && rotate_dorami < totalRot_dorami)
+            {
+                plus_dorami = true;
+            }
+            else
+            {
+                //first checking after rotate_dorami is equal to total rotation (totalRot)
+                if (plus_dorami)
+                {
+                    rotate_dorami = -1;
+                }
+
+                if (rotate_dorami > (-1 * totalRot_dorami - 1))
+                {
+                    plus_dorami = false;
+                }
+                else
+                {
+                    rotate_dorami = 0;
+                    plus_dorami = true;
+                }
+            }
+            if (plus_dorami)
+            {
+                dorami.Child[2].rotate(dorami._center, dorami.Child[2]._euler[2], rotdeg_dorami * -1);
+                dorami.Child[3].rotate(dorami._center, dorami.Child[2]._euler[2], rotdeg_dorami * -1);
+                rotate_dorami += rotdeg_dorami;
+            }
+            else
+            {
+                dorami.Child[2].rotate(dorami._center, dorami.Child[2]._euler[2], rotdeg_dorami);
+                dorami.Child[3].rotate(dorami._center, dorami.Child[2]._euler[2], rotdeg_dorami);
+                rotate_dorami -= rotdeg_dorami;
+            }
+        }
+
 
         public void makeDoraemon() 
         {
@@ -1052,6 +1435,7 @@ namespace Pertemuan1
             makeHand();
             makeFoot();
             makeBaling();
+            
 
 
             //cam.addChildClass(main_head);
@@ -1089,16 +1473,24 @@ namespace Pertemuan1
            
             makeDoraemon();
             makePawaemon();
+            makeDorami();
             makeEnvironment();
+            sakura[0] = makeSakura(2,2,5);
+            sakura[1] = makeSakura(-2, 2, -3);//Belakang
+            sakura[2] = makeSakura(-3.5f, 2, 2.5f);//Depan sendiri
+
 
             doraemon.load(Constant.PATH + "shader.vert", Constant.PATH + "shader.frag", Size.X, Size.Y);
             pawaemon.load(Constant.PATH + "shader.vert", Constant.PATH + "shader.frag", Size.X, Size.Y);
+            dorami.load(Constant.PATH + "shader.vert", Constant.PATH + "shader.frag", Size.X, Size.Y);
             _environment.load(Constant.PATH + "shader.vert", Constant.PATH + "shader.frag", Size.X, Size.Y);
 
             cam.addChildClass(doraemon);
             cam.addChildClass(pawaemon);
+            cam.addChildClass(dorami);
             cam.addChildClass(_environment);
 
+            loadSakura();
 
             GL.GetInteger(GetPName.MaxVertexAttribs, out int maxAttributeCount);
             Console.WriteLine($"Maximum number of vertex attributes supported : {maxAttributeCount}");
@@ -1117,12 +1509,15 @@ namespace Pertemuan1
             //smile.rotate(main_head._center, main_head._euler[2], 180);
             doraemon.render(3, temp, _camera.GetViewMatrix(), _camera.GetProjectionMatrix());
             pawaemon.render(3, temp, _camera.GetViewMatrix(), _camera.GetProjectionMatrix());
+            dorami.render(3, temp, _camera.GetViewMatrix(), _camera.GetProjectionMatrix());
             _environment.render(3, temp, _camera.GetViewMatrix(), _camera.GetProjectionMatrix());
+            renderSakura(temp);
 
-           
 
-            //animateDoraemon();
+
+            animateDoraemon();
             animatePawaemon();
+            animateDorami();
             SwapBuffers();
         }
 

@@ -13,7 +13,7 @@ namespace Pertemuan1
         {
             var nativeWindowSettings = new NativeWindowSettings()
             {
-                Size = new OpenTK.Mathematics.Vector2i(800, 600),
+                Size = new OpenTK.Mathematics.Vector2i(1920, 1080),
                 Title = "Pertemuan 1"
             };
             using (var window = new Window(GameWindowSettings.Default, nativeWindowSettings))
